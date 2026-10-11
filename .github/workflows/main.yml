@@ -11,6 +11,7 @@ jobs:
         tmate -S /tmp/tmate.sock new-session -d
         tmate -S /tmp/tmate.sock wait text-icon
         echo "============== SERVER DATA =============="
-        tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
+        tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' > /tmp/server_info.txt
+        cat /tmp/server_info.txt
         echo "========================================="
         sleep 21600
