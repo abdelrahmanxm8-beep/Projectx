@@ -1,0 +1,16 @@
+name: Free VPS WebSocket SSH
+on: [workflow_dispatch, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Launch Free VPS with Tmate
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y tmate
+        tmate -S /tmp/tmate.sock new-session -d
+        tmate -S /tmp/tmate.sock wait text-icon
+        echo "============== SERVER DATA =============="
+        tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
+        echo "========================================="
+        sleep 21600
