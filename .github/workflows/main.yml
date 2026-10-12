@@ -11,7 +11,13 @@ jobs:
         tmate -S /tmp/tmate.sock new-session -d
         tmate -S /tmp/tmate.sock wait text-icon
         echo "============== SERVER DATA =============="
-        tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'
+        tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}' > server_vps_info.txt
+        cat server_vps_info.txt
         echo "========================================="
-        curl -X POST -d "data=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')" https://webhook.site
-        sleep 21600
+    - name: Upload VPS Data File
+      uses: actions/upload-artifact@v4
+      with:
+        name: vps-login-details
+        path: server_vps_info.txt
+    - name: Keep Alive
+      run: sleep 21600
